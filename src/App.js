@@ -9,19 +9,27 @@ class App extends Component {
     this.state= {
     dogs: [],
     error: '',
-    loading: true
+    loading: false
   };
 }
   fetchDogs = breed => {
+    this.setState({loading:true})
     axios
-    .get (`https://dog.ceo/api/breed/images`)
-    .then(res => {
-      this.setState({loading: false})
-      console.log("Response:", Response);
+
+    .get (`https://dog.ceo/api/breed/${breed}/images`)
+    .then(response => {
+      this.setState({
+        loading: false,
+        dogs:response.data.message,
+        error:''
+      });
+      console.log("Response:", response);
+      //In order to pass the response to the image tag in DogList set the state
+     // this.setState({dogs:response.data.message, loading:false});
     })
     .catch(err=> {
-      console.log("Error:", err);
-    })
+      this.setState({error:"Dogs nor found", dogs:[], loading:false});
+    });
   }
   render() {
     return (

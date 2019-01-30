@@ -9,11 +9,13 @@ class SearchBar extends React.Component{
         };
     }
     inputChange = e=> {
-        this.setState ({[e.target.name]:e.target.value});
+      //  this.setState ({[e.target.name]:e.target.value});
+      this.setState ({breed:e.target.value});
     }
     
     SearchForBreed = e => {
         e.preventDefault();
+        //pass the name of the breed
         this.props.fetchDogs(this.state.breed);
         //this.setState({breed: ""});
     };
